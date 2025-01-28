@@ -1,0 +1,28 @@
+{
+    "name": "Rust Dev Container",
+    // Dockerfileの場所
+    "dockerFile": "Dockerfile",
+    // コンテナをビルドする際のコンテキスト (一つ上の階層を指定)
+    "context": "..",
+    // ビルド時に使用するdocker-composeを指定する場合は以下コメントアウトを利用:
+    // "dockerComposeFile": [
+    //   "../docker-compose.yml"
+    // ],
+    // "service": "rust_app", // docker-compose.ymlのサービス名
+    // エディタのVSCode設定 (保存時フォーマットなど)
+    "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "rust-analyzer.checkOnSave.command": "clippy",
+        "rust-analyzer.checkOnSave.allTargets": true
+    },
+    // devcontainer内で自動インストールするVSCode拡張機能
+    "extensions": [
+        "rust-lang.rust-analyzer",
+        "vadimcn.vscode-lldb",
+        "serayuzgur.crates",
+        "tamasfe.even-better-toml"
+    ],
+    // コンテナ起動後に実行するコマンド例
+    "postCreateCommand": "cargo check && cargo build"
+}

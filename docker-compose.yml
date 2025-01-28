@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  rust_app:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    container_name: rust_dev_container
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    # ホットリロードを使う例
+    command: bash -c "cargo watch -x run"
+    ports:
+      - "8080:8080"

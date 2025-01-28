@@ -1,0 +1,32 @@
+// .vscode/tasks.json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Act (CI)",
+      "type": "shell",
+      // 実行コマンド（ここでは wsl経由で act を呼び出し）
+      "command": "wsl act --secret-file .github/workflows/act_secrets.env",
+      // ここで環境変数を指定すると、コマンド実行時に設定される
+      "options": {
+        "env": {
+          "ACT": "true"
+        }
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Act (pull_request)",
+      "type": "shell",
+      "command": "wsl act --secret-file .github/workflows/act_secrets.env pull_request",
+      "options": {
+        "env": {
+          "ACT": "true"
+        }
+      },
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}
