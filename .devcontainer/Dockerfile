@@ -1,21 +1,25 @@
-# ベースイメージはお好みでバージョン指定
+# ベースイメージ
 FROM rust:1.84-slim
 
-# 必要に応じてライブラリを追加
-RUN apt-get update && apt-get install -y \
+# 基本的な開発ライブラリを導入
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    ca-certificates \
     lldb \
-    gcc \
     git \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# cargo-watchのインストール（ホットリロードに使用する場合）
-RUN cargo install cargo-watch
+# cargoツール類のインストール
+RUN cargo install cargo-watch cargo-edit cargo-outdated cargo-release
 
-# コンテナ内のワークディレクトリ作成
-WORKDIR /workspace
-
-# [オプション] Rustツールのコンポーネント (clippy, rustfmt) をインストール
+# Rust標準コンポーネントの追加
 RUN rustup component add clippy rustfmt
 
-# 最後にデフォルトコマンド指定(ここでは何もしない)
-CMD [ "bash" ]
+# 作業ディレクトリ
+WORKDIR /workspace
+
+# デフォルトコマンド
+CMD ["bash"]
